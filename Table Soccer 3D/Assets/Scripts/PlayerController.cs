@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     //Calculate distance
     private float currentDistance;
     private float safeSpace;
-    private float shootPower;
+    private float shotPower;
 
     public float maxDistance = 2f;
 
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //calculate power and direction
-        shootPower = Mathf.Abs(safeSpace) * 10;
+        shotPower = Mathf.Abs(safeSpace) * 10;
 
         Vector3 dimensionXY = mousePointA.transform.position - transform.position;
         float difference = dimensionXY.magnitude;
@@ -42,14 +42,6 @@ public class PlayerController : MonoBehaviour
             mousePointB.transform.position.y, 
             -0.8f
             );
-        
-        shootDirection = Vector3.Normalize(mousePointA.transform.position - transform.position);
-    }
-
-    private void OnMouseUp()
-    {
-        Vector3 push = shootDirection * shootPower * -1;
-        GetComponent<Rigidbody>().AddForce(push, ForceMode.Impulse);
     }
 
 }
