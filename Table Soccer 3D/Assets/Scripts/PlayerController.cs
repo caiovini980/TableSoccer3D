@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,22 +9,59 @@ public class PlayerController : MonoBehaviour
     public GameObject mousePointB; //the orange ball
     public GameObject arrow;
     public GameObject circle;
+    public float maxDistance = 3f;
+    public bool isShootable = true;
+    [Tooltip("Maximum value of X before player can shoot again"), Range(0, 1)]
+    public float maxX;
+    [Tooltip("Maximum value of Y before player can shoot again"), Range(0, 1)]
+    public float maxY;
+    [Tooltip("Minimum value of X before player can shoot again"), Range(-1, 0)]
+    public float minX;
+    [Tooltip("Minimum value of Y before player can shoot again"), Range(-1, 0)]
+    public float minY;
+    
 
     //Calculate distance
     private float currentDistance;
     private float safeSpace;
     private float shootPower;
-
-    public float maxDistance = 3f;
-
+    private int acceleration = 2;
     private Vector3 shootDirection;
+    private Renderer arrowRenderer, circleRenderer;
+    private Rigidbody rb;
 
     private void Awake()
     {
-        mousePointA = GameObject.FindGameObjectWithTag("PointA");
-        mousePointB = GameObject.FindGameObjectWithTag("PointB");
-        arrow = GameObject.FindGameObjectWithTag("Arrow");
-        circle = GameObject.FindGameObjectWithTag("Circle");
+        rb = GetComponent<Rigidbody>();
+        arrowRenderer = arrow.GetComponent<Renderer>();
+        circleRenderer = circle.GetComponent<Renderer>();
+    }
+
+    private void Start()
+    {
+        
+    }
+
+    private void Update()
+    {
+        //Debug.Log(rb.velocity);
+    }
+
+    private void LateUpdate()
+    {
+        if (rb.velocity.x > maxX || rb.velocity.x < minX &&
+            rb.velocity.y > maxY || rb.velocity.y < minY)
+        {
+            isShootable = false;
+        }
+        else
+        {
+            Vector3 velocity = rb.velocity;
+            velocity = new Vector3(0f, 0f, 0f);
+            rb.velocity = velocity;
+
+            isShootable = true;
+        }
     }
 
     private void OnMouseDrag()
@@ -36,53 +74,62 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            currentDistance = maxDistance;
+            safeSpace = maxDistance;
         }
 
-        doArrowAndCircleStuffy();
+        ArrowAndCircle();
 
         //calculate power and direction
-        shootPower = Mathf.Abs(safeSpace) * 13;
+        shootPower = Mathf.Abs(safeSpace) * acceleration;
 
         Vector3 dimensionXY = mousePointA.transform.position - transform.position;
         float difference = dimensionXY.magnitude;
+
         mousePointB.transform.position = transform.position + ((dimensionXY / difference) * currentDistance * - 1);
-        mousePointB.transform.position = new Vector3(mousePointB.transform.position.x, mousePointB.transform.position.y, -0.5f);
+
         shootDirection = Vector3.Normalize(mousePointA.transform.position - transform.position);
     }
 
+    //Apply the force
     private void OnMouseUp() 
     {
-        arrow.GetComponent<Renderer>().enabled = false;
-        circle.GetComponent<Renderer>().enabled = false;
+        arrowRenderer.enabled = false;
+        circleRenderer.enabled = false;
+        isShootable = false;
 
         Vector3 push = shootDirection * shootPower * -1;
-        GetComponent<Rigidbody>().AddForce(push, ForceMode.Impulse);
+        rb.AddForce(push, ForceMode.Impulse);
     }
 
-    private void doArrowAndCircleStuffy()
+    private void ArrowAndCircle()
     {
-        arrow.GetComponent<Renderer>().enabled = true;
-        circle.GetComponent<Renderer>().enabled = true;
+        arrowRenderer.enabled = true;
+        circleRenderer.enabled = true;
 
-        //calc position
-        if(currentDistance <= maxDistance)
+        //calculate position of the arrow and the circle
+        if (currentDistance <= maxDistance)
         {
-            arrow.transform.position = new Vector3((2 * transform.position.x) - mousePointA.transform.position.x, 
-                (2 * transform.position.y) - mousePointA.transform.position.y, -1.5f);
+            //spawn arrow to show direction of the shot
+            arrow.transform.position = new Vector3((2 * transform.position.x) - mousePointA.transform.position.x,
+            (2 * transform.position.y) - mousePointA.transform.position.y, 0);
         }
         else
         {
             Vector3 dimensionXY = mousePointA.transform.position - transform.position;
             float difference = dimensionXY.magnitude;
+
             arrow.transform.position = transform.position + ((dimensionXY / difference) * maxDistance * -1);
-            arrow.transform.position = new Vector3(arrow.transform.position.x, arrow.transform.position.y, -1.5f);
         }
 
+        //circle position
         circle.transform.position = transform.position + new Vector3(0, 0, 0.05f);
+
+        //direction = mouse position - object position
         Vector3 direction = mousePointA.transform.position - transform.position;
         float rotation;
-        if(Vector3.Angle(direction, transform.forward) > 90)
+
+        #region Rotation of the arrow
+        if (Vector3.Angle(direction, transform.forward) > 90)
         {
             rotation = Vector3.Angle(direction, transform.right);
         }
@@ -90,14 +137,15 @@ public class PlayerController : MonoBehaviour
         {
             rotation = Vector3.Angle(direction, transform.right) * -1;
         }
-
         arrow.transform.eulerAngles = new Vector3(0, 0, rotation);
+        #endregion
 
         float scaleX = Mathf.Log(1 + safeSpace / 2, 2) * 2.2f;
         float scaleY = Mathf.Log(1 + safeSpace / 2, 2) * 2.2f;
 
-        arrow.transform.localScale = new Vector3(1 + scaleX, 1 + scaleY, 0.001f);
+        arrow.transform.localScale = new Vector3(scaleX, scaleY, 0.001f);
         circle.transform.localScale = new Vector3(1 + scaleX, 1 + scaleY, 0.001f);
     }
+
 
 }

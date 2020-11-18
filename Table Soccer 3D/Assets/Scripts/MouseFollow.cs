@@ -4,24 +4,30 @@ using UnityEngine;
 
 public class MouseFollow : MonoBehaviour
 {
-    private float offset = -0.8f;
+    private float offset = 0f;
     private Vector3 tempPosition;
+    public Camera cam;
+    public PlayerController playerController;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, offset);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         //get current mouse position
-        tempPosition = Camera.main.ScreenToWorldPoint(
+        tempPosition = cam.ScreenToWorldPoint(
             new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10)
             );
+        Debug.Log(tempPosition);
 
-        //move the object to the mouse position
-        transform.position = new Vector3(tempPosition.x, tempPosition.y, offset);
+        if (playerController.isShootable)
+        {
+            //move the object to the mouse position
+            transform.position = new Vector3(tempPosition.x, tempPosition.y, offset);
+        }
     }
 }
