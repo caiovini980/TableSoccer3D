@@ -8,6 +8,8 @@ TagManager:
   - PointB
   - Arrow
   - Circle
+  - Goal1
+  - Goal2
   layers:
   - Default
   - TransparentFX

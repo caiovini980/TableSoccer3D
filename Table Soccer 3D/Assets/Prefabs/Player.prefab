@@ -125,8 +125,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69ea9e2dcc1f67c4baa0a241467a94f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mousePointA: {fileID: 0}
-  mousePointB: {fileID: 0}
-  arrow: {fileID: 0}
-  circle: {fileID: 0}
+  mousePointA: {fileID: 9134292647094228996, guid: 2d83cf8749357aa41a16506bf29c9e75, type: 3}
+  mousePointB: {fileID: 3777043736095547159, guid: e679abe33e836fa45bf89adbe6e6f8ad, type: 3}
+  arrow: {fileID: 1857346220953497461, guid: bb7396ea5722ae545a3791bfabb417fe, type: 3}
+  circle: {fileID: 6569954741921626333, guid: eeaf62d9a8a355845b7669862ce62447, type: 3}
   maxDistance: 2
+  isShootable: 1
+  maxX: 0.5
+  maxY: 0.5
+  minX: -0.5
+  minY: -0.5

@@ -7,26 +7,23 @@ public class MouseFollow : MonoBehaviour
     private float offset = 0f;
     private Vector3 tempPosition;
     public Camera cam;
-    public PlayerController playerController;
+    public PlayerController player;
 
     // Start is called before the first frame update
-    private void Start()
+    void Start()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, offset);
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
-        //get current mouse position
-        tempPosition = cam.ScreenToWorldPoint(
-            new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10)
-            );
-        Debug.Log(tempPosition);
+        tempPosition = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
 
-        if (playerController.isShootable)
+
+        //Move the object to the mouse position
+        if(player.isShootable)
         {
-            //move the object to the mouse position
             transform.position = new Vector3(tempPosition.x, tempPosition.y, offset);
         }
     }

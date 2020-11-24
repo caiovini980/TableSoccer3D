@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Photon.Pun;
+using Photon.Realtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+
+public class PlayerController : MonoBehaviourPunCallbacks
 {
-    public GameObject mousePointA; //the green ball
-    public GameObject mousePointB; //the orange ball
-    public GameObject arrow;
-    public GameObject circle;
+    private GameObject mousePointA; //the green ball
+    private GameObject mousePointB; //the orange ball
+    private GameObject arrow;
+    private GameObject circle;
     public float maxDistance = 3f;
     public bool isShootable = true;
     [Tooltip("Maximum value of X before player can shoot again"), Range(0, 1)]
@@ -29,23 +32,34 @@ public class PlayerController : MonoBehaviour
     private Vector3 shootDirection;
     private Renderer arrowRenderer, circleRenderer;
     private Rigidbody rb;
+    private Player _photonPlayer;
+    private int _playerId;
 
     private void Awake()
     {
+        mousePointA = GameObject.FindGameObjectWithTag("PointA");
+        mousePointB = GameObject.FindGameObjectWithTag("PointB");
+        arrow = GameObject.FindGameObjectWithTag("Arrow");
+        circle = GameObject.FindGameObjectWithTag("Circle");
+
         rb = GetComponent<Rigidbody>();
         arrowRenderer = arrow.GetComponent<Renderer>();
         circleRenderer = circle.GetComponent<Renderer>();
     }
 
-    private void Start()
+    [PunRPC]
+    public void Initialize(Player player)
     {
-        
+        _photonPlayer = player;
+        _playerId = player.ActorNumber;
+        GameSetupController.Instance.Players.Add(this);
+
+        if (!photonView.IsMine)
+        {
+            rb.isKinematic = true;
+        }
     }
 
-    private void Update()
-    {
-        //Debug.Log(rb.velocity);
-    }
 
     private void LateUpdate()
     {
