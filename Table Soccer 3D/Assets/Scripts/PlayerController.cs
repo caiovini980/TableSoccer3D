@@ -14,14 +14,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private GameObject circle;
     public float maxDistance = 3f;
     public bool isShootable = true;
-    [Tooltip("Maximum value of X before player can shoot again"), Range(0, 1)]
+    /*[Tooltip("Maximum value of X before player can shoot again"), Range(0, 1)]
     public float maxX;
     [Tooltip("Maximum value of Y before player can shoot again"), Range(0, 1)]
     public float maxY;
     [Tooltip("Minimum value of X before player can shoot again"), Range(-1, 0)]
     public float minX;
     [Tooltip("Minimum value of Y before player can shoot again"), Range(-1, 0)]
-    public float minY;
+    public float minY;*/
     
 
     //Calculate distance
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     private void LateUpdate()
     {
-        if (rb.velocity.x > maxX || rb.velocity.x < minX &&
+        /*if (rb.velocity.x > maxX || rb.velocity.x < minX &&
             rb.velocity.y > maxY || rb.velocity.y < minY)
         {
             isShootable = false;
@@ -74,8 +74,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
             velocity = new Vector3(0f, 0f, 0f);
             rb.velocity = velocity;
 
-            isShootable = true;
-        }
+            //isShootable = true;
+        }*/
     }
 
     private void OnMouseDrag()
@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         arrowRenderer.enabled = false;
         circleRenderer.enabled = false;
-        isShootable = false;
+        //isShootable = false;
 
         Vector3 push = shootDirection * shootPower * -1;
         rb.AddForce(push, ForceMode.Impulse);
