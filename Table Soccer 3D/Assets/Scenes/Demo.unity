@@ -1200,6 +1200,7 @@ GameObject:
   - component: {fileID: 1314731486}
   - component: {fileID: 1314731485}
   - component: {fileID: 1314731484}
+  - component: {fileID: 1314731488}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1287,6 +1288,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1314731488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314731483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6870a3a8c997e7445944b733acf8ea5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score1: {fileID: 666358182}
+  score2: {fileID: 1716319293}
 --- !u!1 &1391893467
 GameObject:
   m_ObjectHideFlags: 0
@@ -2593,59 +2608,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4703200482544968248, guid: a151e9d60043f7540a21412049a84d8b, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.7205399
-      objectReference: {fileID: 0}
     - target: {fileID: 4703200482544968260, guid: a151e9d60043f7540a21412049a84d8b, type: 3}
       propertyPath: m_Name
       value: Ball
       objectReference: {fileID: 0}
+    - target: {fileID: 5945853451240610052, guid: a151e9d60043f7540a21412049a84d8b, type: 3}
+      propertyPath: viewIdField
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945853451240610053, guid: a151e9d60043f7540a21412049a84d8b, type: 3}
+      propertyPath: _uiManager
+      value: 
+      objectReference: {fileID: 1314731488}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a151e9d60043f7540a21412049a84d8b, type: 3}
---- !u!1 &5945853451240610050 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4703200482544968260, guid: a151e9d60043f7540a21412049a84d8b, type: 3}
-  m_PrefabInstance: {fileID: 5945853451240610049}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5945853451240610051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5945853451240610050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
---- !u!114 &5945853451240610052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5945853451240610050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  observableSearch: 2
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 5945853451240610051}
-  viewIdField: 3
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1001 &6569954741179872914
 PrefabInstance:
   m_ObjectHideFlags: 0
