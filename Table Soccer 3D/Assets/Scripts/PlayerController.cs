@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private float currentDistance;
     private float safeSpace;
     private float shootPower;
-    private int acceleration = 2;
+    private int acceleration = 8;
     private Vector3 shootDirection;
     private Renderer arrowRenderer, circleRenderer;
     private Rigidbody rb;
